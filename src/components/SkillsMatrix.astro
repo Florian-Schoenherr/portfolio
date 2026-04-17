@@ -1,0 +1,126 @@
+---
+interface Member {
+  name: string;
+  skills: string[];
+}
+
+interface Props {
+  members: Member[];
+}
+
+const { members } = Astro.props;
+
+const allSkills = Array.from(
+  new Set(members.flatMap((m) => m.skills))
+).sort((a, b) => a.localeCompare(b));
+
+const hasSkill = (member: Member, skill: string) => member.skills.includes(skill);
+---
+
+<div class="matrix">
+  <h3 class="matrix__title">Skills matrix</h3>
+  <p class="muted matrix__sub">
+    A consolidated view of what the partners bring to an engagement.
+  </p>
+
+  <div class="matrix__wrap" role="region" aria-label="Skills matrix">
+    <table class="matrix__table">
+      <thead>
+        <tr>
+          <th scope="col">Skill / capability</th>
+          {members.map((m) => <th scope="col">{m.name.split(' ')[0]}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          allSkills.map((skill) => (
+            <tr>
+              <th scope="row">{skill}</th>
+              {members.map((m) => (
+                <td aria-label={hasSkill(m, skill) ? `${m.name}: yes` : `${m.name}: no`}>
+                  {hasSkill(m, skill) ? (
+                    <span class="dot dot--on" />
+                  ) : (
+                    <span class="dot dot--off" />
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .matrix {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+  }
+
+  .matrix__title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+  }
+
+  .matrix__sub {
+    margin: 0.25rem 0 1rem;
+    font-size: 0.9rem;
+  }
+
+  .matrix__wrap {
+    overflow-x: auto;
+  }
+
+  .matrix__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .matrix__table th,
+  .matrix__table td {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .matrix__table thead th {
+    font-weight: 600;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .matrix__table tbody th {
+    font-weight: 500;
+  }
+
+  .matrix__table td {
+    text-align: center;
+    width: 80px;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot--on {
+    background: var(--color-accent);
+  }
+
+  .dot--off {
+    background: transparent;
+    border: 1px solid var(--color-border);
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__inner">
+    <p class="eyebrow">IT Consultancy · Automation · Digitalization</p>
+    <h1 id="hero-title" class="hero__title">
+      Research-grade software.<br />
+      <span class="hero__title-accent">Boardroom-grade delivery.</span>
+    </h1>
+    <p class="hero__lede">
+      SWRSWR helps mid-market European firms automate manual processes and
+      move paper-era workflows into systems that are auditable, observable,
+      and maintainable. We pair engineering rigour with the project discipline
+      your stakeholders expect.
+    </p>
+    <div class="hero__actions">
+      <a class="button button--primary" href="#contact">Start a conversation</a>
+      <a class="button button--secondary" href="#cases">See our work</a>
+    </div>
+
+    <dl class="hero__stats" aria-label="Firm at a glance">
+      <div>
+        <dt>Founded</dt>
+        <dd>2024</dd>
+      </div>
+      <div>
+        <dt>Partners</dt>
+        <dd>3</dd>
+      </div>
+      <div>
+        <dt>Engagements</dt>
+        <dd>Fixed-scope, 6–16 wk</dd>
+      </div>
+      <div>
+        <dt>Sector focus</dt>
+        <dd>Mid-market, DACH + CEE</dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="hero__grid" aria-hidden="true"></div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(4rem, 9vw, 7rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%);
+    opacity: 0.55;
+  }
+
+  .hero__inner {
+    max-width: 880px;
+  }
+
+  .hero__title {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    margin-bottom: 1rem;
+  }
+
+  .hero__title-accent {
+    color: var(--color-accent);
+  }
+
+  .hero__lede {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    color: var(--color-muted);
+    max-width: 56ch;
+    margin-bottom: 2rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem 2rem;
+    padding: 1.5rem;
+    margin: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .hero__stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .hero__stats dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+
+  .hero__stats dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+</style>

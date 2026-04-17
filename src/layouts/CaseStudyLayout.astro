@@ -1,0 +1,172 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Metric {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  title: string;
+  client: string;
+  industry: string;
+  summary: string;
+  stack: string[];
+  metrics: Metric[];
+  durationWeeks?: number;
+}
+
+const {
+  title,
+  client,
+  industry,
+  summary,
+  stack,
+  metrics,
+  durationWeeks,
+} = Astro.props;
+
+const pageTitle = `${title} · SWRSWR case study`;
+---
+
+<BaseLayout title={pageTitle} description={summary} current="Case Studies">
+  <article class="case">
+    <div class="container">
+      <nav class="case__crumbs" aria-label="Breadcrumb">
+        <a href="/#cases">← Back to case studies</a>
+      </nav>
+
+      <header class="case__head">
+        <p class="eyebrow">
+          <span>{client}</span>
+          <span aria-hidden="true"> · </span>
+          <span>{industry}</span>
+          {
+            durationWeeks && (
+              <>
+                <span aria-hidden="true"> · </span>
+                <span>{durationWeeks}-week engagement</span>
+              </>
+            )
+          }
+        </p>
+        <h1>{title}</h1>
+        <p class="case__summary">{summary}</p>
+
+        <ul class="case__stack" aria-label="Technology stack">
+          {stack.map((s) => <li>{s}</li>)}
+        </ul>
+
+        <dl class="case__metrics" aria-label="Headline outcomes">
+          {
+            metrics.map((m) => (
+              <div>
+                <dt>{m.label}</dt>
+                <dd>{m.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </header>
+
+      <div class="case__body">
+        <slot />
+      </div>
+
+      <footer class="case__foot">
+        <a class="button button--primary" href="/#contact">
+          Have a similar problem? Let's talk.
+        </a>
+        <a class="button button--secondary" href="/#cases">More case studies</a>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .case {
+    padding-block: clamp(2rem, 5vw, 4rem) 5rem;
+  }
+
+  .case__crumbs {
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .case__head {
+    max-width: 860px;
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .case__head h1 {
+    margin: 0.25rem 0 1rem;
+  }
+
+  .case__summary {
+    font-size: 1.1rem;
+    color: var(--color-muted);
+    max-width: 62ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .case__stack {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .case__stack li {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-muted);
+    border: 1px solid var(--color-border);
+  }
+
+  .case__metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .case__metrics dt {
+    margin: 0;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+
+  .case__metrics dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .case__body {
+    max-width: 860px;
+  }
+
+  .case__foot {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+</style>

@@ -1,0 +1,218 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ExecutiveSummary from '../components/ExecutiveSummary.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import TeamCard from '../components/TeamCard.astro';
+import SkillsMatrix from '../components/SkillsMatrix.astro';
+import CaseCard from '../components/CaseCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const services = (await getCollection('services')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const team = (await getCollection('team')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const caseStudies = (await getCollection('caseStudies')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const renderedTeam = await Promise.all(
+  team.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  })
+);
+
+const matrixMembers = team.map((t) => ({
+  name: t.data.name,
+  skills: t.data.skills,
+}));
+---
+
+<BaseLayout>
+  <Hero />
+
+  <ExecutiveSummary />
+
+  <section id="services" class="section" aria-labelledby="services-title">
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">Service catalogue</p>
+        <h2 id="services-title">What we actually do, in plain language</h2>
+        <p class="muted section__lede">
+          Every engagement is scoped to a named business outcome — not hours or
+          head-count. You always know what you are buying.
+        </p>
+      </header>
+
+      <div class="services__grid">
+        {
+          services.map((s) => (
+            <ServiceCard
+              title={s.data.title}
+              tagline={s.data.tagline}
+              deliverables={s.data.deliverables}
+              icon={s.data.icon}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="team"
+    class="section section--surface"
+    aria-labelledby="team-title"
+  >
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">The team</p>
+        <h2 id="team-title">Three partners. One accountable team.</h2>
+        <p class="muted section__lede">
+          You work directly with the people who do the work. No resource
+          pools, no mystery offshore team, no hand-offs.
+        </p>
+      </header>
+
+      <div class="team__grid">
+        {
+          renderedTeam.map(({ entry, Content }) => (
+            <TeamCard
+              name={entry.data.name}
+              role={entry.data.role}
+              credentials={entry.data.credentials}
+              initials={entry.data.initials}
+              accent={entry.data.headshotAccent}
+            >
+              <Content />
+            </TeamCard>
+          ))
+        }
+      </div>
+
+      <SkillsMatrix members={matrixMembers} />
+    </div>
+  </section>
+
+  <section id="cases" class="section" aria-labelledby="cases-title">
+    <div class="container">
+      <header class="section__head">
+        <p class="eyebrow">Case studies</p>
+        <h2 id="cases-title">Selected engagements</h2>
+        <p class="muted section__lede">
+          Each write-up follows the STAR method — Situation, Task, Action,
+          Result — so you can skim to the outcome, or dive into how we got
+          there.
+        </p>
+      </header>
+
+      <div class="cases__grid">
+        {
+          caseStudies.map((c) => (
+            <CaseCard
+              title={c.data.title}
+              client={c.data.client}
+              industry={c.data.industry}
+              summary={c.data.summary}
+              metrics={c.data.metrics}
+              stack={c.data.stack}
+              href={`/cases/${c.id}/`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="contact"
+    class="section section--surface"
+    aria-labelledby="contact-title"
+  >
+    <div class="container contact__inner">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Let's talk about one specific problem.</h2>
+        <p class="muted">
+          Share a paragraph about what is taking too long, costing too much,
+          or too fragile to change. We'll come back within two working days
+          with a short note on whether — and how — we can help.
+        </p>
+        <ul class="contact__facts">
+          <li><strong>Email</strong> <a href="mailto:hello@swrswr.example.com">hello@swrswr.example.com</a></li>
+          <li><strong>Based in</strong> Vienna, Austria</li>
+          <li><strong>Working hours</strong> 09:00 – 18:00 CET, Mon–Fri</li>
+        </ul>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section__head {
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+  }
+
+  .section__lede {
+    font-size: 1rem;
+    margin: 0.5rem 0 0;
+  }
+
+  .services__grid,
+  .team__grid,
+  .cases__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .services__grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .team__grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .cases__grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .contact__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact__facts {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .contact__facts strong {
+    display: inline-block;
+    min-width: 130px;
+    color: var(--color-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 820px) {
+    .contact__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

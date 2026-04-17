@@ -1,0 +1,55 @@
+---
+interface Props {
+  name: 'bolt' | 'database' | 'network' | 'compass';
+  size?: number;
+}
+const { name, size = 28 } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    name === 'bolt' && (
+      <path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" />
+    )
+  }
+  {
+    name === 'database' && (
+      <>
+        <ellipse cx="12" cy="5" rx="8" ry="3" />
+        <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" />
+        <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
+      </>
+    )
+  }
+  {
+    name === 'network' && (
+      <>
+        <circle cx="5" cy="6" r="2" />
+        <circle cx="19" cy="6" r="2" />
+        <circle cx="5" cy="18" r="2" />
+        <circle cx="19" cy="18" r="2" />
+        <circle cx="12" cy="12" r="2.5" />
+        <path d="M7 6l3.5 5M17 6l-3.5 5M7 18l3.5-5M17 18l-3.5-5" />
+      </>
+    )
+  }
+  {
+    name === 'compass' && (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" />
+      </>
+    )
+  }
+</svg>

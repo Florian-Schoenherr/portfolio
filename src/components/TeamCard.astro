@@ -1,0 +1,83 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  credentials?: string;
+  initials: string;
+  accent: string;
+  bioHtml?: string;
+}
+
+const { name, role, credentials, initials, accent } = Astro.props;
+---
+
+<article class="tc">
+  <div class="tc__avatar" style={`--accent:${accent}`} aria-hidden="true">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id={`grad-${initials}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color={accent} stop-opacity="1" />
+          <stop offset="100%" stop-color={accent} stop-opacity="0.55" />
+        </linearGradient>
+      </defs>
+      <rect width="80" height="80" rx="40" fill={`url(#grad-${initials})`} />
+      <text
+        x="40"
+        y="48"
+        text-anchor="middle"
+        font-family="ui-serif, Georgia, serif"
+        font-weight="700"
+        font-size="30"
+        fill="#ffffff">{initials}</text>
+    </svg>
+  </div>
+  <h3 class="tc__name">{name}</h3>
+  <p class="tc__role">{role}</p>
+  {credentials && <p class="tc__creds muted">{credentials}</p>}
+  <div class="tc__bio"><slot /></div>
+</article>
+
+<style>
+  .tc {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    height: 100%;
+  }
+
+  .tc__avatar {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 6px 18px
+      color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  .tc__name {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .tc__role {
+    margin: 0.2rem 0 0.1rem;
+    font-size: 0.92rem;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .tc__creds {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .tc__bio :global(p) {
+    margin: 0.5rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+</style>

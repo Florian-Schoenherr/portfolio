@@ -1,0 +1,152 @@
+---
+interface Props {
+  email?: string;
+}
+const { email = 'hello@swrswr.example.com' } = Astro.props;
+---
+
+<form
+  class="cf"
+  id="cf"
+  action={`mailto:${email}`}
+  method="post"
+  enctype="text/plain"
+  data-email={email}
+  novalidate
+>
+  <div class="cf__row">
+    <label class="cf__field">
+      <span>Name</span>
+      <input type="text" name="name" autocomplete="name" required />
+    </label>
+    <label class="cf__field">
+      <span>Company</span>
+      <input type="text" name="company" autocomplete="organization" />
+    </label>
+  </div>
+
+  <label class="cf__field">
+    <span>Work email</span>
+    <input type="email" name="email" autocomplete="email" required />
+  </label>
+
+  <label class="cf__field">
+    <span>What would you like to discuss?</span>
+    <textarea name="message" rows="5" required></textarea>
+  </label>
+
+  <div class="cf__actions">
+    <button type="submit" class="button button--primary">Send message</button>
+    <p class="cf__note muted">
+      We reply within two working days. Your message opens in your email client —
+      no data is stored on this site.
+    </p>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('cf') as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const to = form.dataset.email ?? '';
+      const name = String(data.get('name') ?? '').trim();
+      const company = String(data.get('company') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+
+      if (!name || !email || !message) {
+        form.reportValidity();
+        return;
+      }
+
+      const subject = `New enquiry from ${name}${company ? ` (${company})` : ''}`;
+      const body = [
+        `Name: ${name}`,
+        company ? `Company: ${company}` : null,
+        `Email: ${email}`,
+        '',
+        message,
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const href =
+        `mailto:${to}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
+      window.location.href = href;
+    });
+  }
+</script>
+
+<style>
+  .cf {
+    display: grid;
+    gap: 1rem;
+    padding: 1.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+  }
+
+  .cf__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .cf__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-fg);
+  }
+
+  .cf__field input,
+  .cf__field textarea {
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--color-fg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.7rem 0.85rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .cf__field textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .cf__field input:focus,
+  .cf__field textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 20%, transparent);
+  }
+
+  .cf__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .cf__note {
+    margin: 0;
+    font-size: 0.82rem;
+    flex: 1 1 200px;
+  }
+
+  @media (max-width: 560px) {
+    .cf__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

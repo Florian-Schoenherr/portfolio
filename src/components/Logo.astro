@@ -1,0 +1,48 @@
+---
+interface Props {
+  size?: number;
+  title?: string;
+}
+
+const { size = 40, title = 'SWRSWR' } = Astro.props;
+---
+
+<span class="logo" aria-label={title} role="img">
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 72 72"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <rect
+      x="2"
+      y="2"
+      width="68"
+      height="68"
+      rx="14"
+      ry="14"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+    ></rect>
+    <line x1="36" y1="8" x2="36" y2="64" stroke="currentColor" stroke-width="1.5" opacity="0.2"></line>
+    <line x1="8" y1="36" x2="64" y2="36" stroke="currentColor" stroke-width="1.5" opacity="0.2"></line>
+    <g font-family="ui-serif, Georgia, serif" font-weight="700" font-size="14" fill="currentColor" text-anchor="middle">
+      <text x="22" y="28">S</text>
+      <text x="50" y="28">W</text>
+      <text x="22" y="54">R</text>
+      <text x="50" y="54">·</text>
+    </g>
+  </svg>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-fg);
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+title: Digitalizing paper claim intake for a regional insurer
+client: Ostmark Insurance
+industry: Insurance
+summary: Replaced a paper-first claim intake process with an OCR + validation microservice, cutting the claim cycle by 70% and removing a layer of manual data entry.
+stack:
+  - Python
+  - FastAPI
+  - PostgreSQL
+  - Tesseract + LayoutLM
+  - Docker
+  - GitHub Actions
+durationWeeks: 14
+order: 2
+metrics:
+  - label: Faster claim cycle
+    value: -70%
+  - label: Data-entry errors
+    value: -22%
+  - label: First-pass auto-validation
+    value: 63%
+---
+
+import StarSection from '../../components/StarSection.astro';
+
+<StarSection label="Situation">
+  Ostmark Insurance processed around 400 claims per week, every one of them
+  arriving as a scanned PDF or fax. Two full-time clerks re-typed each claim
+  into the core insurance system. Between the queue, the re-typing, and the
+  verification loop, a straightforward claim routinely took seven working days
+  to acknowledge — well behind what competitors were offering online.
+</StarSection>
+
+<StarSection label="Task">
+  Build a claim-intake layer that extracts structured data from the scanned
+  forms, validates it against policy and customer data, and routes low-risk
+  claims straight into the existing core system — without requiring Ostmark
+  to replace that core system or change their broker workflow.
+</StarSection>
+
+<StarSection label="Action">
+  - Catalogued the 11 in-use claim-form variants and built a labelled dataset
+    of 1,200 redacted samples.
+  - Prototyped three OCR pipelines and benchmarked them; picked a Tesseract
+    + LayoutLM combination with a confidence-gated hand-off to a human
+    reviewer for low-confidence fields.
+  - Wrapped the pipeline as a FastAPI microservice with a queue-backed
+    worker, deployed in Docker on Ostmark's existing on-prem stack.
+  - Added a validation service that cross-checks extracted fields against
+    the policy database and flags impossible combinations (policy expired,
+    claim predates coverage, etc.).
+  - Built a lightweight review UI for the two clerks, who pivoted from
+    typists to reviewers of exceptions only.
+  - Delivered a full CI/CD pipeline with contract tests and a staging
+    environment the compliance team could audit.
+</StarSection>
+
+<StarSection label="Result">
+  Average claim cycle time dropped from **7 days to ~2 days**, a **70%**
+  reduction. **63%** of claims now pass through to the core system without
+  human touch on the first attempt, and data-entry errors found downstream
+  fell by **22%**. The two clerks were redeployed into fraud review, where
+  Ostmark had a long-standing backlog.
+</StarSection>

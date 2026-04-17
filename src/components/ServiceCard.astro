@@ -1,0 +1,93 @@
+---
+import ServiceIcon from './ServiceIcon.astro';
+
+interface Props {
+  title: string;
+  tagline: string;
+  deliverables: string[];
+  icon: 'bolt' | 'database' | 'network' | 'compass';
+}
+
+const { title, tagline, deliverables, icon } = Astro.props;
+---
+
+<article class="service">
+  <div class="service__icon">
+    <ServiceIcon name={icon} size={26} />
+  </div>
+  <h3 class="service__title">{title}</h3>
+  <p class="service__tagline">{tagline}</p>
+  <ul class="service__deliverables">
+    {deliverables.map((item) => <li>{item}</li>)}
+  </ul>
+</article>
+
+<style>
+  .service {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s ease, transform 0.15s ease,
+      box-shadow 0.15s ease;
+    height: 100%;
+  }
+
+  .service:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
+    box-shadow: var(--shadow-md);
+  }
+
+  .service__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    color: var(--color-accent);
+  }
+
+  .service__title {
+    margin: 0 0 0.4rem;
+    font-size: 1.15rem;
+  }
+
+  .service__tagline {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    margin: 0 0 1rem;
+  }
+
+  .service__deliverables {
+    margin: auto 0 0;
+    padding: 1rem 0 0;
+    list-style: none;
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .service__deliverables li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.88rem;
+    color: var(--color-fg);
+  }
+
+  .service__deliverables li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+</style>

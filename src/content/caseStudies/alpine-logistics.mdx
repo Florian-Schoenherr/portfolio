@@ -1,0 +1,62 @@
+---
+title: From 5-hour dispatch ritual to a 20-minute review
+client: Alpine Logistics GmbH
+industry: Freight & logistics
+summary: Replaced a daily manual dispatch spreadsheet with an automated routing pipeline that eliminated four-and-a-half hours of repetitive work per day.
+stack:
+  - Python
+  - FastAPI
+  - PostgreSQL
+  - Apache Airflow
+  - Grafana
+durationWeeks: 10
+order: 1
+metrics:
+  - label: Time saved / day
+    value: 4h 40m
+  - label: SLA adherence
+    value: 98%
+  - label: Manual dispatcher errors
+    value: -86%
+---
+
+import StarSection from '../../components/StarSection.astro';
+
+<StarSection label="Situation">
+  Alpine Logistics' dispatch team started every day by hand-copying the
+  previous night's shipment plan into a 14-tab Excel workbook, cross-checking
+  driver availability, and manually assigning routes. The ritual took five
+  hours. A single mistyped cell could cascade into missed SLAs across the
+  eastern region, and the institutional knowledge lived in the head of one
+  senior dispatcher who was weeks away from retiring.
+</StarSection>
+
+<StarSection label="Task">
+  Reduce daily dispatch preparation to under an hour, remove the single-person
+  bottleneck, and make the routing logic inspectable and auditable — without
+  replacing the ERP or retraining the drivers. The engagement had a 10-week
+  budget and a hard go-live before the pre-Christmas freight peak.
+</StarSection>
+
+<StarSection label="Action">
+  - Ran a two-week process mining sprint to reconstruct the dispatcher's
+    implicit rules as an explicit decision model.
+  - Built a Python + FastAPI service that reads the overnight shipment plan
+    from the ERP, applies the decision model, and writes a proposed daily
+    route set into a new PostgreSQL table.
+  - Wrapped the job in Apache Airflow with idempotent retries and a full
+    audit trail.
+  - Delivered a thin review UI so dispatchers can approve, tweak, or override
+    any route before the driver apps pick it up.
+  - Stood up Grafana dashboards for SLA adherence and route-override rate,
+    so the team could tell us the day the model needed retraining.
+  - Shadowed the senior dispatcher during three parallel runs before cut-over.
+</StarSection>
+
+<StarSection label="Result">
+  Dispatch preparation dropped from **5 hours to ~20 minutes** of review.
+  SLA adherence rose from 91% to **98%** in the first quarter after go-live,
+  and manual dispatcher errors fell by **86%**. The retiring dispatcher's
+  knowledge is now encoded, versioned, and reviewable — and the team has
+  added two more automated rules on their own since handover.
+</StarSection>

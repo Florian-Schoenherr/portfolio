@@ -1,0 +1,89 @@
+---
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <Logo size={28} />
+      <div>
+        <div class="footer__name">SWRSWR</div>
+        <div class="footer__mission">
+          SchönherrWeberReichert · SoftWareResearch
+        </div>
+      </div>
+    </div>
+
+    <nav aria-label="Footer" class="footer__nav">
+      <a href="/#services">Services</a>
+      <a href="/#team">Team</a>
+      <a href="/#cases">Case Studies</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+
+    <p class="footer__legal muted">
+      © {year} SchönherrWeberReichert SoftWareResearch. A mock student portfolio.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding-block: 2.5rem;
+    margin-top: 4rem;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem 2rem;
+    align-items: start;
+  }
+
+  .footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer__name {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .footer__mission {
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+
+  .footer__nav {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .footer__nav a {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+
+  .footer__nav a:hover {
+    color: var(--color-fg);
+  }
+
+  .footer__legal {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 640px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,115 @@
+---
+interface Props {
+  label: 'Situation' | 'Task' | 'Action' | 'Result';
+}
+
+const { label } = Astro.props;
+
+const labelClass = label.toLowerCase();
+---
+
+<section class={`star star--${labelClass}`} aria-label={label}>
+  <div class="star__tag">
+    <span class="star__letter" aria-hidden="true">{label.charAt(0)}</span>
+    <span class="star__word">{label}</span>
+  </div>
+  <div class="star__body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .star {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin: 1.25rem 0;
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+  }
+
+  .star--situation {
+    border-left-color: #6366f1;
+  }
+  .star--task {
+    border-left-color: #0ea5e9;
+  }
+  .star--action {
+    border-left-color: #10b981;
+  }
+  .star--result {
+    border-left-color: #f59e0b;
+  }
+
+  .star__tag {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    position: sticky;
+    top: 5rem;
+    height: max-content;
+  }
+
+  .star__letter {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .star--situation .star__letter { color: #6366f1; }
+  .star--task .star__letter { color: #0ea5e9; }
+  .star--action .star__letter { color: #10b981; }
+  .star--result .star__letter { color: #f59e0b; }
+
+  .star__word {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+
+  .star__body :global(p) {
+    margin: 0 0 0.75rem;
+    color: var(--color-fg);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .star__body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .star__body :global(ul) {
+    margin: 0.5rem 0;
+    padding-left: 1.2rem;
+  }
+  .star__body :global(li) {
+    margin-bottom: 0.4rem;
+    color: var(--color-fg);
+  }
+  .star__body :global(strong) {
+    color: var(--color-fg);
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .star {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .star__tag {
+      position: static;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+    .star__letter {
+      font-size: 1.6rem;
+    }
+  }
+</style>
