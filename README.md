@@ -30,7 +30,7 @@ npm run preview    # preview the production build locally
 npm run check      # astro check (types + content schemas)
 ```
 
-Node 18.17+ is required.
+Node **22.12+** is required (Astro 6 requirement).
 
 ## Project layout
 
