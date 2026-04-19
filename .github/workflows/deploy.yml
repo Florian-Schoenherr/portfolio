@@ -1,0 +1,79 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Only one concurrent deploy; cancel in-progress runs of the same workflow.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compute site & base
+        id: meta
+        env:
+          CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          OWNER="${GITHUB_REPOSITORY%%/*}"
+
+          if [ -n "$CUSTOM_DOMAIN" ]; then
+            # Custom domain configured via repo variable: serve at root.
+            SITE="https://$CUSTOM_DOMAIN"
+            BASE=""
+          elif [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
+            # User/org page: served at the root of <owner>.github.io
+            SITE="https://${OWNER}.github.io"
+            BASE=""
+          else
+            # Project page: served at <owner>.github.io/<repo>/
+            SITE="https://${OWNER}.github.io"
+            BASE="/${REPO_NAME}"
+          fi
+
+          echo "site=$SITE"   | tee -a "$GITHUB_OUTPUT"
+          echo "base=$BASE"   | tee -a "$GITHUB_OUTPUT"
+
+      - name: Build
+        env:
+          SITE: ${{ steps.meta.outputs.site }}
+          BASE: ${{ steps.meta.outputs.base }}
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import { withBase } from '../utils/url';
 const year = new Date().getFullYear();
 ---
 
@@ -16,10 +17,10 @@ const year = new Date().getFullYear();
     </div>
 
     <nav aria-label="Footer" class="footer__nav">
-      <a href="/#services">Services</a>
-      <a href="/#team">Team</a>
-      <a href="/#cases">Case Studies</a>
-      <a href="/#contact">Contact</a>
+      <a href={withBase('/#services')}>Services</a>
+      <a href={withBase('/#team')}>Team</a>
+      <a href={withBase('/#cases')}>Case Studies</a>
+      <a href={withBase('/#contact')}>Contact</a>
     </nav>
 
     <p class="footer__legal muted">

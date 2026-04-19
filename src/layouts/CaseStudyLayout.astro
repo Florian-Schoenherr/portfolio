@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { withBase } from '../utils/url';
 
 interface Metric {
   label: string;
@@ -33,7 +34,7 @@ const pageTitle = `${title} · SWRSWR case study`;
   <article class="case">
     <div class="container">
       <nav class="case__crumbs" aria-label="Breadcrumb">
-        <a href="/#cases">← Back to case studies</a>
+        <a href={withBase('/#cases')}>← Back to case studies</a>
       </nav>
 
       <header class="case__head">
@@ -74,10 +75,10 @@ const pageTitle = `${title} · SWRSWR case study`;
       </div>
 
       <footer class="case__foot">
-        <a class="button button--primary" href="/#contact">
+        <a class="button button--primary" href={withBase('/#contact')}>
           Have a similar problem? Let's talk.
         </a>
-        <a class="button button--secondary" href="/#cases">More case studies</a>
+        <a class="button button--secondary" href={withBase('/#cases')}>More case studies</a>
       </footer>
     </div>
   </article>

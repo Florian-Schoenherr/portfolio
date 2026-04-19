@@ -87,6 +87,53 @@ that inherits `currentColor` so it adapts to whatever background it sits
 on. The palette uses slate neutrals with `#2563eb` (indigo-600) as the
 single accent.
 
+## Deploying to GitHub Pages
+
+A ready-to-use workflow lives at
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml). It builds the
+site on every push to `main` and publishes `dist/` to GitHub Pages.
+
+### One-time setup
+
+1. Push this repository to GitHub.
+2. In the repo settings, go to **Settings → Pages → Build and deployment**
+   and set **Source** to **GitHub Actions**.
+3. Push to `main` (or run the workflow manually from the **Actions** tab).
+
+The first run takes ~1 minute. Subsequent deploys are incremental.
+
+### The workflow handles three common setups automatically
+
+The workflow computes Astro's `site` and `base` from `GITHUB_REPOSITORY`
+and a couple of optional variables, so the same config works for:
+
+| Scenario | Repo name | Served at | `base` |
+| --- | --- | --- | --- |
+| **Project page** (default) | anything else | `https://<you>.github.io/<repo>/` | `/<repo>` |
+| **User / org page** | `<you>.github.io` | `https://<you>.github.io/` | *(none)* |
+| **Custom domain** | anything | `https://<your-domain>/` | *(none)* |
+
+For a custom domain, add a repo variable `CUSTOM_DOMAIN` under
+**Settings → Secrets and variables → Actions → Variables** (value, e.g.
+`swrswr.com`) and drop a `CNAME` file into `public/` containing the same
+hostname.
+
+### Running the prod build locally
+
+```bash
+# default (treated as a root deploy)
+npm run build
+
+# simulate a project-page deploy under /swrswr-portfolio/
+SITE=https://you.github.io BASE=/swrswr-portfolio npm run build
+npm run preview
+```
+
+Internal links are prefixed via a small `withBase()` helper in
+[src/utils/url.ts](src/utils/url.ts), so anchors keep working even when
+the site is served from a sub-path. A `public/.nojekyll` file is shipped
+so GitHub Pages serves Astro's `_astro/` asset directory.
+
 ## License
 
 This is coursework. No real business is being represented; all clients,

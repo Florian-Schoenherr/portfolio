@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import { withBase } from '../utils/url';
 
 interface Props {
   current?: string;
@@ -8,16 +9,16 @@ interface Props {
 const { current } = Astro.props;
 
 const links = [
-  { href: '/#services', label: 'Services' },
-  { href: '/#team', label: 'Team' },
-  { href: '/#cases', label: 'Case Studies' },
-  { href: '/#contact', label: 'Contact' },
+  { href: withBase('/#services'), label: 'Services' },
+  { href: withBase('/#team'), label: 'Team' },
+  { href: withBase('/#cases'), label: 'Case Studies' },
+  { href: withBase('/#contact'), label: 'Contact' },
 ];
 ---
 
 <header class="nav">
   <div class="container nav__inner">
-    <a href="/" class="nav__brand" aria-label="SWRSWR — home">
+    <a href={withBase('/')} class="nav__brand" aria-label="SWRSWR — home">
       <Logo size={32} />
       <span class="nav__wordmark">
         <span class="nav__initials">SWRSWR</span>

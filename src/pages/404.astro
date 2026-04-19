@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../utils/url';
 ---
 
 <BaseLayout
@@ -15,10 +16,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         a few good places to go next:
       </p>
       <ul class="nf__links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/#services">Services</a></li>
-        <li><a href="/#cases">Case studies</a></li>
-        <li><a href="/#contact">Contact us</a></li>
+        <li><a href={withBase('/')}>Home</a></li>
+        <li><a href={withBase('/#services')}>Services</a></li>
+        <li><a href={withBase('/#cases')}>Case studies</a></li>
+        <li><a href={withBase('/#contact')}>Contact us</a></li>
       </ul>
     </div>
   </section>
