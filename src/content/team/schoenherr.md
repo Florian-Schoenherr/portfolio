@@ -6,6 +6,7 @@ initials: FS
 headshotAccent: "#2563eb"
 order: 1
 skills:
+  - Python
   - Project strategy
   - Stakeholder management
   - Roadmap ownership

@@ -8,7 +8,7 @@ order: 2
 skills:
   - TypeScript
   - Python
-  - Go
+  - C#
   - Kubernetes
   - Event-driven architectures
   - CI/CD & observability

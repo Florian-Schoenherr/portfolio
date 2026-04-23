@@ -7,6 +7,7 @@ headshotAccent: "#10b981"
 order: 3
 skills:
   - Python
+  - TypeScript
   - RPA (UiPath, Power Automate)
   - Process mining
   - Low-code integrations (n8n)
