@@ -1,0 +1,49 @@
+---
+title: "Evolving tech: the case for caution"
+summary: A delivery lead's view on what gets quietly traded away when a team chases every new technology that arrives in the inbox.
+date: 2026-03-22
+author: schoenherr
+category: opinion
+tags:
+  - swot
+  - leadership
+  - strategy
+---
+
+import SwotMatrix from '../../components/SwotMatrix.astro';
+
+I have nothing against new tools. I have a problem with the *idea* that
+new always means better — that the cost of standing still is, by default,
+higher than the cost of switching. In a small delivery organisation, that
+idea is wrong about as often as it is right.
+
+Every migration starts as a slide. It ends as six months of double-booked
+brains. The team that was reliably shipping last quarter spends the next
+two re-learning their own muscle memory in a slightly different shell. The
+business gets a feature drought; the client gets the same product, with a
+new bill of materials underneath. We're left arguing that *something*
+must have improved, because the alternative is admitting we just paid for
+movement.
+
+<SwotMatrix
+  title="SWOT — evolving technology"
+  highlight="threats"
+  strengths={["Faster iteration, cheaper experiments", "Better security defaults than yesterday's stack", "Easier hiring around modern tooling"]}
+  weaknesses={["Real cost is paid in attention, not licences", "Each migration leaks institutional knowledge", "Team productivity dips during transition"]}
+  opportunities={["Genuine 10x leaps when a new tool fits the problem", "Replace bespoke code with maintained primitives", "Recruit engineers who want to use it"]}
+  threats={["Tech-treadmill drag on delivery cadence", "Vendor lock-in and abandoned roadmaps", "Erosion of trust when the new tool also breaks"]}
+/>
+
+The threats column is the one nobody puts on the slide. Drag is invisible
+because it never shows up on a single quarter's report. It shows up two
+years later, when half the team is fluent in *exactly the wrong version*
+of three different platforms, and the senior engineer who knew the old
+system has politely moved on.
+
+The discipline I push for is boring: choose what to *not* adopt. Make the
+default "we have this; it works; here is what we will need to see to
+move." Treat every new platform like a hire — they have to make the team
+demonstrably better, not just newer. If they cannot show that, the answer
+is no, and "no" is a complete sentence in this business.
+
+— Florian

@@ -1,0 +1,214 @@
+---
+import Logo from './Logo.astro';
+import { withBase } from '../utils/url';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  byline?: string;
+  downloadHref?: string;
+}
+
+const { title, subtitle, byline, downloadHref } = Astro.props;
+const dlHref = downloadHref ? withBase(downloadHref) : undefined;
+---
+
+<article class="poster">
+  <header class="poster__head">
+    <div class="poster__brand">
+      <Logo size={48} />
+      <span class="poster__name">SWRSWR</span>
+    </div>
+    <p class="poster__eyebrow">A SWRSWR field guide</p>
+    <h1 class="poster__title">{title}</h1>
+    <p class="poster__subtitle">{subtitle}</p>
+    {byline && <p class="poster__byline">{byline}</p>}
+    {
+      dlHref && (
+        <div class="poster__actions">
+          <a class="button button--primary" href={dlHref} download>
+            Download poster (SVG)
+          </a>
+          <button
+            type="button"
+            class="button button--secondary"
+            onclick="window.print()"
+          >
+            Print
+          </button>
+        </div>
+      )
+    }
+  </header>
+
+  <div class="poster__body">
+    <slot />
+  </div>
+
+  <footer class="poster__foot">
+    <span>SchönherrWeberReichert · SoftWareResearch</span>
+    <span>swrswr.example.com</span>
+  </footer>
+</article>
+
+<style>
+  .poster {
+    max-width: 1100px;
+    margin: 2.5rem auto;
+    padding: clamp(2rem, 5vw, 4rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .poster__head {
+    border-bottom: 2px solid var(--color-fg);
+    padding-bottom: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .poster__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-fg);
+    margin-bottom: 1.5rem;
+  }
+
+  .poster__name {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .poster__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-accent);
+  }
+
+  .poster__title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .poster__subtitle {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    color: var(--color-muted);
+    max-width: 60ch;
+  }
+
+  .poster__byline {
+    margin: 1rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+
+  .poster__actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .poster__body :global(.principles) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 2rem;
+    counter-reset: principle;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .poster__body :global(.principles > li) {
+    counter-increment: principle;
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    position: relative;
+  }
+
+  .poster__body :global(.principles > li::before) {
+    content: counter(principle, decimal-leading-zero);
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--color-accent);
+    opacity: 0.6;
+  }
+
+  .poster__body :global(.principles h3) {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    padding-right: 2.5rem;
+  }
+
+  .poster__body :global(.principles p) {
+    margin: 0;
+    color: var(--color-fg);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .poster__foot {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 720px) {
+    .poster__body :global(.principles) {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<style is:global>
+  @media print {
+    @page {
+      size: A3 portrait;
+      margin: 12mm;
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .footer {
+      display: none;
+    }
+
+    .poster {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .poster__actions {
+      display: none !important;
+    }
+  }
+</style>

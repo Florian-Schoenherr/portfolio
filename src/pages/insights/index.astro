@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InsightCard from '../../components/InsightCard.astro';
+
+const insights = (await getCollection('insights')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout
+  title="Insights · SWRSWR"
+  description="Opinion pieces and field guides from the SchönherrWeberReichert partners — on automation, technology adoption, and running engineering teams."
+  current="Insights"
+>
+  <section class="section">
+    <div class="container">
+      <header class="ix__head">
+        <p class="eyebrow">Insights</p>
+        <h1>Notes, opinions, and the occasional field guide.</h1>
+        <p class="muted ix__lede">
+          Short pieces from the three partners. Some are opinionated, some are
+          practical, all of them are honest about the trade-offs.
+        </p>
+      </header>
+
+      <div class="ix__grid">
+        {
+          insights.map((entry) => (
+            <InsightCard
+              title={entry.data.title}
+              summary={entry.data.summary}
+              date={entry.data.date}
+              authorSlug={entry.data.author}
+              category={entry.data.category}
+              slug={entry.id}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ix__head {
+    max-width: 760px;
+    margin-bottom: 2.5rem;
+  }
+
+  .ix__lede {
+    font-size: 1rem;
+    margin: 0.75rem 0 0;
+  }
+
+  .ix__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  authorSlug: 'schoenherr' | 'weber' | 'reichert';
+  date: Date;
+  size?: 'sm' | 'md';
+}
+
+const { authorSlug, date, size = 'md' } = Astro.props;
+const author = await getEntry('team', authorSlug);
+
+if (!author) {
+  throw new Error(`Author not found: ${authorSlug}`);
+}
+
+const { name, role, initials, headshotAccent } = author.data;
+
+const formattedDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(date);
+
+const isoDate = date.toISOString().slice(0, 10);
+---
+
+<div class:list={['byline', `byline--${size}`]}>
+  <span class="byline__avatar" style={`--accent:${headshotAccent}`} aria-hidden="true">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id={`bygrad-${authorSlug}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color={headshotAccent} stop-opacity="1" />
+          <stop offset="100%" stop-color={headshotAccent} stop-opacity="0.55" />
+        </linearGradient>
+      </defs>
+      <rect width="80" height="80" rx="40" fill={`url(#bygrad-${authorSlug})`} />
+      <text
+        x="40"
+        y="50"
+        text-anchor="middle"
+        font-family="ui-serif, Georgia, serif"
+        font-weight="700"
+        font-size="30"
+        fill="#ffffff">{initials}</text>
+    </svg>
+  </span>
+  <div class="byline__meta">
+    <span class="byline__name">{name}</span>
+    <span class="byline__role">{role}</span>
+  </div>
+  <time class="byline__date" datetime={isoDate}>{formattedDate}</time>
+</div>
+
+<style>
+  .byline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .byline__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 30%, transparent);
+    flex: 0 0 auto;
+  }
+
+  .byline--sm .byline__avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .byline__meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .byline__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-fg);
+  }
+
+  .byline--sm .byline__name {
+    font-size: 0.88rem;
+  }
+
+  .byline__role {
+    font-size: 0.78rem;
+    color: var(--color-muted);
+  }
+
+  .byline__date {
+    margin-left: auto;
+    padding-left: 1rem;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+    border-left: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 520px) {
+    .byline__date {
+      margin-left: 0;
+      padding-left: 0;
+      border-left: 0;
+      width: 100%;
+    }
+    .byline {
+      flex-wrap: wrap;
+    }
+  }
+</style>

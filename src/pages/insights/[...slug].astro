@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import InsightLayout from '../../layouts/InsightLayout.astro';
+import PosterLayout from '../../layouts/PosterLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('insights');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, summary, date, author, category, display, tags } = entry.data;
+
+// Convention: a poster display looks for a sibling SVG download under
+// /public/downloads/<slug>.svg. If you ship one, it'll be offered as a
+// download from the poster header.
+const downloadHref =
+  display === 'poster' ? `/downloads/${entry.id}.svg` : undefined;
+---
+
+{
+  display === 'poster' ? (
+    <PosterLayout
+      title={title}
+      summary={summary}
+      date={date}
+      author={author}
+      downloadHref={downloadHref}
+    >
+      <Content />
+    </PosterLayout>
+  ) : (
+    <InsightLayout
+      title={title}
+      summary={summary}
+      date={date}
+      author={author}
+      category={category}
+      tags={tags}
+    >
+      <Content />
+    </InsightLayout>
+  )
+}

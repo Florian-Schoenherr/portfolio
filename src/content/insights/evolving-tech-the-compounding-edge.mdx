@@ -1,0 +1,52 @@
+---
+title: "Evolving tech: the compounding edge"
+summary: The CTO's reply to the cautious case — a 10% productivity gain, compounded across a small team, is not a luxury. It's the difference between growing and stalling.
+date: 2026-03-29
+author: weber
+category: opinion
+tags:
+  - swot
+  - strategy
+  - engineering
+---
+
+import SwotMatrix from '../../components/SwotMatrix.astro';
+
+Florian wrote the cautious post, and he is right about the costs. I am not
+going to pretend they don't exist. What I want to push back on is the
+implicit conclusion: that *because* every migration has a price, the
+default should be to stand still. In 2026, standing still is not free.
+It is the most expensive thing a small engineering team can do.
+
+The price of standing still used to be zero. Your stack worked, the
+industry moved at human speed, and a competent team could quietly run a
+boring system for a decade. That world is gone. The cost of compute, of
+shipping, of automating a once-manual task, has fallen so fast that a
+team using last year's tools is competing with a team that gets the same
+work done in two thirds of the time. The gap shows up not in a single
+quarter, but in the third one, when their estimates are smaller than
+yours and the client notices.
+
+<SwotMatrix
+  title="SWOT — evolving technology"
+  highlight="opportunities"
+  strengths={["Faster iteration, cheaper experiments", "Better security defaults than yesterday's stack", "Easier hiring around modern tooling"]}
+  weaknesses={["Real cost is paid in attention, not licences", "Each migration leaks institutional knowledge", "Team productivity dips during transition"]}
+  opportunities={["Genuine 10x leaps when a new tool fits the problem", "Replace bespoke code with maintained primitives", "Take on engagements a slower stack can't price"]}
+  threats={["Tech-treadmill drag on delivery cadence", "Vendor lock-in and abandoned roadmaps", "Erosion of trust when the new tool also breaks"]}
+/>
+
+The opportunities column is where compounding lives. A 10% improvement
+on a single task is forgettable. The same 10% across every PR review,
+every CI run, every onboarding, for four quarters in a row, is what
+separates a team that grows from one that survives. Compounded gains are
+*invisible per week and decisive per year* — which is why teams that
+optimise for the week always lose to teams that optimise for the year.
+
+My rule is the inverse of Florian's, but it lands in the same place: adopt
+on evidence, not on hype, and only when the team can name *what they
+will stop doing* to make room. Otherwise it is just another tab in the
+browser. But when the evidence is there, move — and don't apologise for
+it.
+
+— Phillip

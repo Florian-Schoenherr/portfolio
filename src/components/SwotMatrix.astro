@@ -1,0 +1,138 @@
+---
+interface Props {
+  strengths: string[];
+  weaknesses: string[];
+  opportunities: string[];
+  threats: string[];
+  highlight?: 'strengths' | 'weaknesses' | 'opportunities' | 'threats';
+  title?: string;
+}
+
+const {
+  strengths,
+  weaknesses,
+  opportunities,
+  threats,
+  highlight,
+  title = 'SWOT',
+} = Astro.props;
+
+const quadrants = [
+  { key: 'strengths',     label: 'Strengths',     items: strengths },
+  { key: 'weaknesses',    label: 'Weaknesses',    items: weaknesses },
+  { key: 'opportunities', label: 'Opportunities', items: opportunities },
+  { key: 'threats',       label: 'Threats',       items: threats },
+] as const;
+---
+
+<figure class="swot" aria-label={`${title} analysis`}>
+  <figcaption class="swot__cap">
+    <span class="eyebrow">{title}</span>
+    {
+      highlight && (
+        <span class="swot__focus">
+          Author's focus: <strong>{highlight}</strong>
+        </span>
+      )
+    }
+  </figcaption>
+  <div class="swot__grid">
+    {
+      quadrants.map((q) => (
+        <div
+          class:list={[
+            'swot__cell',
+            `swot__cell--${q.key}`,
+            highlight === q.key && 'is-focus',
+          ]}
+        >
+          <h4 class="swot__label">{q.label}</h4>
+          <ul>
+            {q.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</figure>
+
+<style>
+  .swot {
+    margin: 1.75rem 0;
+    padding: 0;
+  }
+
+  .swot__cap {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .swot__focus {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+
+  .swot__focus strong {
+    color: var(--color-fg);
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+
+  .swot__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .swot__cell {
+    padding: 1rem 1.1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    border-left-width: 4px;
+  }
+
+  .swot__cell--strengths     { border-left-color: #10b981; }
+  .swot__cell--weaknesses    { border-left-color: #f59e0b; }
+  .swot__cell--opportunities { border-left-color: #6366f1; }
+  .swot__cell--threats       { border-left-color: #ef4444; }
+
+  .swot__cell.is-focus {
+    background: var(--color-surface);
+    box-shadow: 0 0 0 2px
+      color-mix(in srgb, var(--color-fg) 8%, transparent);
+  }
+
+  .swot__label {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
+
+  .swot__cell ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .swot__cell li {
+    font-size: 0.9rem;
+    color: var(--color-fg);
+    line-height: 1.45;
+  }
+
+  @media (max-width: 640px) {
+    .swot__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

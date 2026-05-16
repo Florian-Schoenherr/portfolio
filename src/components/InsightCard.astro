@@ -1,0 +1,138 @@
+---
+import { getEntry } from 'astro:content';
+import { withBase } from '../utils/url';
+
+interface Props {
+  title: string;
+  summary: string;
+  date: Date;
+  authorSlug: 'schoenherr' | 'weber' | 'reichert';
+  category: 'opinion' | 'guide';
+  slug: string;
+}
+
+const { title, summary, date, authorSlug, category, slug } = Astro.props;
+const author = await getEntry('team', authorSlug);
+const authorName = author?.data.name ?? authorSlug;
+
+const formattedDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+}).format(date);
+
+const isoDate = date.toISOString().slice(0, 10);
+const href = withBase(`/insights/${slug}/`);
+
+const categoryLabel = category === 'guide' ? 'Field guide' : 'Opinion';
+---
+
+<article class:list={['ic', `ic--${category}`]}>
+  <header class="ic__head">
+    <span class="ic__pill">{categoryLabel}</span>
+    <time class="ic__date" datetime={isoDate}>{formattedDate}</time>
+  </header>
+  <h3 class="ic__title">
+    <a href={href}>{title}</a>
+  </h3>
+  <p class="ic__summary">{summary}</p>
+  <footer class="ic__foot">
+    <span class="ic__author">By {authorName}</span>
+    <a class="ic__cta" href={href}>
+      Read <span aria-hidden="true">→</span>
+    </a>
+  </footer>
+</article>
+
+<style>
+  .ic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    height: 100%;
+  }
+
+  .ic:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
+    box-shadow: var(--shadow-md);
+  }
+
+  .ic__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .ic__pill {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    color: var(--color-accent);
+  }
+
+  .ic--guide .ic__pill {
+    background: color-mix(in srgb, #f59e0b 12%, transparent);
+    color: #b45309;
+  }
+
+  .ic__date {
+    font-size: 0.78rem;
+    color: var(--color-muted);
+  }
+
+  .ic__title {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+
+  .ic__title a {
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  .ic__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .ic__summary {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .ic__foot {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .ic__author {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .ic__cta {
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+</style>

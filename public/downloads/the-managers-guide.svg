@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1754" width="1240" height="1754" font-family="Georgia, 'Times New Roman', serif">
+  <title>The Manager's Guide - SWRSWR</title>
+  <desc>An eight-principle field guide for running engineering teams, by SchönherrWeberReichert SoftWareResearch.</desc>
+
+  <!-- Page -->
+  <rect x="0" y="0" width="1240" height="1754" fill="#ffffff"/>
+
+  <!-- Faint grid backdrop -->
+  <g opacity="0.06" stroke="#0f172a" stroke-width="1">
+    <path d="M0 100 H1240 M0 200 H1240 M0 300 H1240 M0 400 H1240 M0 500 H1240 M0 600 H1240 M0 700 H1240 M0 800 H1240 M0 900 H1240 M0 1000 H1240 M0 1100 H1240 M0 1200 H1240 M0 1300 H1240 M0 1400 H1240 M0 1500 H1240 M0 1600 H1240 M0 1700 H1240"/>
+    <path d="M100 0 V1754 M200 0 V1754 M300 0 V1754 M400 0 V1754 M500 0 V1754 M600 0 V1754 M700 0 V1754 M800 0 V1754 M900 0 V1754 M1000 0 V1754 M1100 0 V1754 M1200 0 V1754"/>
+  </g>
+
+  <!-- Header -->
+  <g transform="translate(80, 110)">
+    <!-- Monogram -->
+    <g>
+      <rect x="0" y="0" width="80" height="80" rx="16" ry="16" fill="none" stroke="#0f172a" stroke-width="3"/>
+      <line x1="40" y1="6" x2="40" y2="74" stroke="#0f172a" stroke-width="1.5" opacity="0.25"/>
+      <line x1="6" y1="40" x2="74" y2="40" stroke="#0f172a" stroke-width="1.5" opacity="0.25"/>
+      <text x="24" y="32" text-anchor="middle" font-weight="700" font-size="18" fill="#0f172a">S</text>
+      <text x="56" y="32" text-anchor="middle" font-weight="700" font-size="18" fill="#0f172a">W</text>
+      <text x="24" y="62" text-anchor="middle" font-weight="700" font-size="18" fill="#0f172a">R</text>
+      <text x="56" y="62" text-anchor="middle" font-weight="700" font-size="18" fill="#0f172a">·</text>
+    </g>
+    <text x="100" y="36" font-weight="600" font-size="22" fill="#0f172a" letter-spacing="2">SWRSWR</text>
+    <text x="100" y="64" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="14" fill="#475569" letter-spacing="2">A FIELD GUIDE</text>
+  </g>
+
+  <!-- Big title -->
+  <text x="80" y="320" font-weight="700" font-size="104" fill="#0f172a" letter-spacing="-2">The Manager's</text>
+  <text x="80" y="430" font-weight="700" font-size="104" fill="#2563eb" letter-spacing="-2">Guide.</text>
+  <line x1="80" y1="470" x2="1160" y2="470" stroke="#0f172a" stroke-width="3"/>
+
+  <!-- Subtitle -->
+  <text x="80" y="520" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="22" fill="#475569">
+    Eight principles for running engineering teams that ship - written in the margins
+  </text>
+  <text x="80" y="552" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="22" fill="#475569">
+    between a delivery review and a postmortem.
+  </text>
+
+  <!-- Principles grid: 2 cols, 4 rows -->
+  <!-- Card dimensions: 520w, 250h, gutters 40 (col) / 30 (row), start at (80, 620) -->
+  <g font-family="-apple-system, Helvetica, Arial, sans-serif" fill="#0f172a">
+
+    <!-- Row 1 -->
+    <g transform="translate(80, 620)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">01</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">Set the destination,</text>
+      <text x="28" y="90" font-family="Georgia, serif" font-weight="700" font-size="24">not the route.</text>
+      <text x="28" y="140" font-size="17" fill="#334155">Outcomes belong to the manager;</text>
+      <text x="28" y="166" font-size="17" fill="#334155">the path belongs to the team. The</text>
+      <text x="28" y="192" font-size="17" fill="#334155">minute you dictate the route, you've</text>
+      <text x="28" y="218" font-size="17" fill="#334155">stopped buying judgement.</text>
+    </g>
+
+    <g transform="translate(640, 620)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">02</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">Trust is the default.</text>
+      <text x="28" y="108" font-size="17" fill="#334155">A specific reason can revoke it.</text>
+      <text x="28" y="134" font-size="17" fill="#334155">Vague unease and "the way we've</text>
+      <text x="28" y="160" font-size="17" fill="#334155">always done it" cannot. Let evidence</text>
+      <text x="28" y="186" font-size="17" fill="#334155">move people, not anxiety.</text>
+    </g>
+
+    <!-- Row 2 -->
+    <g transform="translate(80, 900)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">03</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">Measure what</text>
+      <text x="28" y="90" font-family="Georgia, serif" font-weight="700" font-size="24">shipped.</text>
+      <text x="28" y="140" font-size="17" fill="#334155">Velocity, story points, hours-in-seat</text>
+      <text x="28" y="166" font-size="17" fill="#334155">are proxies - and bad ones. Tie</text>
+      <text x="28" y="192" font-size="17" fill="#334155">reviews to outcomes a customer or</text>
+      <text x="28" y="218" font-size="17" fill="#334155">a balance sheet would recognise.</text>
+    </g>
+
+    <g transform="translate(640, 900)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">04</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">Make the work</text>
+      <text x="28" y="90" font-family="Georgia, serif" font-weight="700" font-size="24">obvious.</text>
+      <text x="28" y="140" font-size="17" fill="#334155">Decisions in writing, in the open,</text>
+      <text x="28" y="166" font-size="17" fill="#334155">with reasoning attached. If three</text>
+      <text x="28" y="192" font-size="17" fill="#334155">people know things, you are one flu</text>
+      <text x="28" y="218" font-size="17" fill="#334155">away from a postmortem.</text>
+    </g>
+
+    <!-- Row 3 -->
+    <g transform="translate(80, 1180)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">05</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">Remove blockers</text>
+      <text x="28" y="90" font-family="Georgia, serif" font-weight="700" font-size="24">faster than you</text>
+      <text x="28" y="122" font-family="Georgia, serif" font-weight="700" font-size="24">set goals.</text>
+      <text x="28" y="170" font-size="17" fill="#334155">A good week is one where you</text>
+      <text x="28" y="196" font-size="17" fill="#334155">mostly cleared the road. New goals</text>
+      <text x="28" y="222" font-size="17" fill="#334155">on top of unresolved blockers are</text>
+    </g>
+
+    <g transform="translate(640, 1180)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">06</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">One owner</text>
+      <text x="28" y="90" font-family="Georgia, serif" font-weight="700" font-size="24">per outcome.</text>
+      <text x="28" y="140" font-size="17" fill="#334155">Shared ownership is shared excuse.</text>
+      <text x="28" y="166" font-size="17" fill="#334155">Two people accountable for the same</text>
+      <text x="28" y="192" font-size="17" fill="#334155">thing means nobody is. Pick one,</text>
+      <text x="28" y="218" font-size="17" fill="#334155">name them, back them in public.</text>
+    </g>
+
+    <!-- Row 4 -->
+    <g transform="translate(80, 1460)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">07</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">Feedback is a tool,</text>
+      <text x="28" y="90" font-family="Georgia, serif" font-weight="700" font-size="24">not a reward.</text>
+      <text x="28" y="140" font-size="17" fill="#334155">Same week, specific. In private when</text>
+      <text x="28" y="166" font-size="17" fill="#334155">corrective, in public when celebra-</text>
+      <text x="28" y="192" font-size="17" fill="#334155">tory. Saved-up feedback is just</text>
+      <text x="28" y="218" font-size="17" fill="#334155">resentment with a timestamp.</text>
+    </g>
+
+    <g transform="translate(640, 1460)">
+      <rect width="520" height="250" rx="10" ry="10" fill="#f8fafc" stroke="#e2e8f0"/>
+      <text x="490" y="50" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="44" fill="#2563eb" opacity="0.55">08</text>
+      <text x="28" y="58" font-family="Georgia, serif" font-weight="700" font-size="24">Hire people you'd</text>
+      <text x="28" y="90" font-family="Georgia, serif" font-weight="700" font-size="24">replace yourself with.</text>
+      <text x="28" y="140" font-size="17" fill="#334155">Then prepare to. The manager's job</text>
+      <text x="28" y="166" font-size="17" fill="#334155">is to make the team less dependent</text>
+      <text x="28" y="192" font-size="17" fill="#334155">on the manager, not more. Absence</text>
+      <text x="28" y="218" font-size="17" fill="#334155">should not be a crisis.</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <line x1="80" y1="1730" x2="1160" y2="1730" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="80" y="1748" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13" fill="#475569">SWRSWR - SchönherrWeberReichert - SoftWareResearch</text>
+  <text x="1160" y="1748" text-anchor="end" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13" fill="#475569">swrswr.example.com</text>
+</svg>

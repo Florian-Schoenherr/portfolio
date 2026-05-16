@@ -42,4 +42,18 @@ const caseStudies = defineCollection({
   }),
 });
 
-export const collections = { team, services, caseStudies };
+const insights = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/insights' }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    date: z.coerce.date(),
+    author: z.enum(['schoenherr', 'weber', 'reichert']),
+    category: z.enum(['opinion', 'guide']).default('opinion'),
+    display: z.enum(['article', 'poster']).default('article'),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+  }),
+});
+
+export const collections = { team, services, caseStudies, insights };
