@@ -1,6 +1,6 @@
 ---
 title: "Evolving tech: the case for caution"
-summary: A delivery lead's view on what gets quietly traded away when a team chases every new technology that arrives in the inbox.
+summary: Reflections from running delivery on why constantly swapping tools rarely shows up as a negative but still slows everyone down.
 date: 2026-03-22
 author: schoenherr
 category: opinion
@@ -12,21 +12,28 @@ tags:
 
 import SwotMatrix from '../../components/SwotMatrix.astro';
 
-I have nothing against new tools. I have a problem with the *idea* that
-new always means better — that the cost of standing still is, by default,
-higher than the cost of switching. In a small delivery organisation, that
-idea is wrong about as often as it is right.
+I am not against new tools. What bothers me is the assumption that newer is
+automatically better, and that not changing stack is always the riskier
+choice. In a small delivery team, that assumption is about as often wrong
+as it is right, or maybe more often wrong, if I am honest about the last few years.
 
-Every migration starts as a slide. It ends as six months of double-booked
-brains. The team that was reliably shipping last quarter spends the next
-two re-learning their own muscle memory in a slightly different shell. The
-business gets a feature drought; the client gets the same product, with a
-new bill of materials underneath. We're left arguing that *something*
-must have improved, because the alternative is admitting we just paid for
-movement.
+That is not the same thing as refusing to touch dependencies. I have
+refactored into different libraries and toolchain pieces quite a few times,
+and those moves were rarely just for novelty. Usually it was efficiency:
+less overhead, clearer maintenance paths, fewer sharp edges once the dust
+settles - or updating because upstream support and security fixes dry up fast
+these days and staying on deprecated bits becomes its own liability.
+
+A migration usually looks tidy in a deck. In real life it tends to mean
+months where the same people are trying to keep the old thing running while
+they learn the new one. The team that was shipping steadily starts spending
+time on setup, edge cases, and “how did we do this before?” The business
+side still wants features; the client often ends up with the same product,
+just rebuilt. Afterwards it is tempting to insist something *must* be
+better, because admitting we mainly bought churn is awkward.
 
 <SwotMatrix
-  title="SWOT — evolving technology"
+  title="SWOT - evolving technology"
   highlight="threats"
   strengths={["Faster iteration, cheaper experiments", "Better security defaults than yesterday's stack", "Easier hiring around modern tooling"]}
   weaknesses={["Real cost is paid in attention, not licences", "Each migration leaks institutional knowledge", "Team productivity dips during transition"]}
@@ -34,16 +41,16 @@ movement.
   threats={["Tech-treadmill drag on delivery cadence", "Vendor lock-in and abandoned roadmaps", "Erosion of trust when the new tool also breaks"]}
 />
 
-The threats column is the one nobody puts on the slide. Drag is invisible
-because it never shows up on a single quarter's report. It shows up two
-years later, when half the team is fluent in *exactly the wrong version*
-of three different platforms, and the senior engineer who knew the old
-system has politely moved on.
+The threats side of the matrix is awkward to pitch upward, which is partly
+why it gets skipped. Slowdown rarely lands in one quarterly report, but shows up later,
+when knowledge is spread across half-updated stacks and the
+person who understood the legacy piece has already left.
 
-The discipline I push for is boring: choose what to *not* adopt. Make the
-default "we have this; it works; here is what we will need to see to
-move." Treat every new platform like a hire — they have to make the team
-demonstrably better, not just newer. If they cannot show that, the answer
-is no, and "no" is a complete sentence in this business.
+The approach I try to argue for is not exciting: decide what we will *not*
+chase by default. Start from “we already have something that works,” and
+list what evidence would justify a move. Compare a serious platform switch
+to hiring someone - it should make the group clearly more effective, not
+just newer on paper. If that case cannot be made, declining is reasonable,
+and a straight “no” is still a legitimate answer.
 
 — Florian
