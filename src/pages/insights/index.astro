@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import InsightCard from '../../components/InsightCard.astro';
+import { withBase } from '../../utils/url';
 
 const insights = (await getCollection('insights')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
@@ -23,6 +24,20 @@ const insights = (await getCollection('insights')).sort(
           practical, all of them are honest about the trade-offs.
         </p>
       </header>
+
+      <aside class="ix__callout">
+        <div>
+          <p class="eyebrow">Interactive</p>
+          <h2 class="ix__callout-title">Legal or Illegal?</h2>
+          <p class="muted">
+            Three AI-in-academia scenarios — unlabelled. Can you assign red,
+            yellow, and green using the traffic light model?
+          </p>
+        </div>
+        <a class="button button--primary" href={withBase('/legal-or-illegal/')}>
+          Take the challenge →
+        </a>
+      </aside>
 
       <div class="ix__grid">
         {
@@ -51,6 +66,25 @@ const insights = (await getCollection('insights')).sort(
   .ix__lede {
     font-size: 1rem;
     margin: 0.75rem 0 0;
+  }
+
+  .ix__callout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .ix__callout-title {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.35rem;
+    font-family: var(--font-serif);
   }
 
   .ix__grid {

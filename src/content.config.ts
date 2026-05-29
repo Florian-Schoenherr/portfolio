@@ -56,4 +56,15 @@ const insights = defineCollection({
   }),
 });
 
-export const collections = { team, services, caseStudies, insights };
+const aiScenarios = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/aiScenarios' }),
+  schema: z.object({
+    title: z.string(),
+    context: z.string(),
+    /** red | yellow | green — stored for authors, not shown on the public page */
+    classification: z.enum(['red', 'yellow', 'green']),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { team, services, caseStudies, insights, aiScenarios };

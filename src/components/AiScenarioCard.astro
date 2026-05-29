@@ -1,0 +1,226 @@
+---
+interface Props {
+  index: number;
+  slug: string;
+  title: string;
+  context: string;
+  classification: 'red' | 'yellow' | 'green';
+}
+
+const { index, slug, title, context, classification } = Astro.props;
+const opinionLabel =
+  classification.charAt(0).toUpperCase() + classification.slice(1);
+---
+
+<article class="scenario" data-scenario-slug={slug}>
+  <header class="scenario__head">
+    <span class="scenario__num" aria-hidden="true">{String(index).padStart(2, '0')}</span>
+    <div>
+      <p class="scenario__context">{context}</p>
+      <h2 class="scenario__title">{title}</h2>
+    </div>
+  </header>
+  <div class="scenario__body">
+    <slot />
+  </div>
+
+  <footer class="scenario__vote">
+    <p class="scenario__vote-label">Your classification</p>
+    <div class="scenario__vote-btns" role="group" aria-label={`Vote for scenario ${index}`}>
+      <button type="button" class="scenario__vote-btn scenario__vote-btn--red" data-vote-btn="red">
+        Red
+      </button>
+      <button type="button" class="scenario__vote-btn scenario__vote-btn--yellow" data-vote-btn="yellow">
+        Yellow
+      </button>
+      <button type="button" class="scenario__vote-btn scenario__vote-btn--green" data-vote-btn="green">
+        Green
+      </button>
+    </div>
+    <p class="scenario__vote-result" data-vote-result aria-live="polite"></p>
+    <p class={`scenario__our-opinion scenario__our-opinion--${classification}`} data-our-opinion hidden>
+      Our opinion:{' '}
+      <strong class={`scenario__our-opinion-label scenario__our-opinion-label--${classification}`}>
+        {opinionLabel}
+      </strong>
+    </p>
+  </footer>
+</article>
+
+<style>
+  .scenario {
+    padding: 1.75rem;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-sm);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .scenario--tinted {
+    border-color: color-mix(in srgb, var(--vote-color) 55%, var(--color-border));
+    background: color-mix(in srgb, var(--vote-color) 7%, var(--color-bg));
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--vote-color) 18%, transparent);
+  }
+
+  .scenario__head {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .scenario__num {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0.45;
+    flex: 0 0 auto;
+  }
+
+  .scenario__context {
+    margin: 0 0 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
+
+  .scenario__title {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+
+  .scenario__body :global(p) {
+    margin: 0;
+    color: var(--color-fg);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .scenario__body :global(strong) {
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+
+  .scenario__vote {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .scenario__vote-label {
+    margin: 0 0 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+  }
+
+  .scenario__vote-btns {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .scenario__vote-btn {
+    flex: 1 1 auto;
+    min-width: 5rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-border);
+    background: var(--color-bg);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      border-color 0.15s ease,
+      background 0.15s ease,
+      transform 0.05s ease;
+  }
+
+  .scenario__vote-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .scenario__vote-btn:disabled {
+    opacity: 0.65;
+    cursor: wait;
+  }
+
+  .scenario__vote-btn--red:hover:not(:disabled),
+  .scenario__vote-btn--red.is-selected {
+    border-color: #ef4444;
+    background: color-mix(in srgb, #ef4444 12%, var(--color-bg));
+    color: #b91c1c;
+  }
+
+  .scenario__vote-btn--yellow:hover:not(:disabled),
+  .scenario__vote-btn--yellow.is-selected {
+    border-color: #f59e0b;
+    background: color-mix(in srgb, #f59e0b 14%, var(--color-bg));
+    color: #b45309;
+  }
+
+  .scenario__vote-btn--green:hover:not(:disabled),
+  .scenario__vote-btn--green.is-selected {
+    border-color: #10b981;
+    background: color-mix(in srgb, #10b981 12%, var(--color-bg));
+    color: #047857;
+  }
+
+  .scenario__vote-result {
+    margin: 0.65rem 0 0;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    min-height: 0;
+  }
+
+  .scenario__our-opinion {
+    margin: 0.75rem 0 0;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.88rem;
+    color: var(--color-fg);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-border);
+  }
+
+  .scenario__our-opinion--red {
+    border-left-color: #ef4444;
+  }
+
+  .scenario__our-opinion--yellow {
+    border-left-color: #f59e0b;
+  }
+
+  .scenario__our-opinion--green {
+    border-left-color: #10b981;
+  }
+
+  .scenario__our-opinion-label--red {
+    color: #b91c1c;
+  }
+
+  .scenario__our-opinion-label--yellow {
+    color: #b45309;
+  }
+
+  .scenario__our-opinion-label--green {
+    color: #047857;
+  }
+</style>
